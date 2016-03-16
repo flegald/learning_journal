@@ -2,7 +2,7 @@
 import pytest
 from sqlalchemy import create_engine
 
-from testapp.models import DBSession, Base
+from learning_journal.models import DBSession, Base
 
 
 TEST_DATABASE_URL = 'sqlite:////tmp/test_db.sqlite'
