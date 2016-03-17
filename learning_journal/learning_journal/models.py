@@ -5,9 +5,9 @@ from sqlalchemy import (
     Column,
     Index,
     Integer,
-    Text,
     DateTime,
-    String,
+    UnicodeText,
+    Unicode,
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -33,11 +33,11 @@ Base = declarative_base()
 class Entry(Base):
     __tablename__ = 'Entry'
     id = Column(Integer, primary_key=True, )
-    title = Column(String(128, convert_unicode=True),
+    title = Column(Unicode(length=128),
                    nullable=False,
                    unique=True,
                    )
-    text = Column(String(convert_unicode=True), nullable=False)
+    text = Column(UnicodeText, nullable=False)
     created = Column(DateTime(timezone=False),
                      default=datetime.datetime.utcnow)
 
