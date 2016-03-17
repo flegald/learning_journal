@@ -21,10 +21,9 @@ requires = [
     'postgres'
     ]
 
-tests_require = ['pytest', 'pytest-watch', 'tox']
+tests_require = ['pytest', 'pytest-watch', 'tox', ]
 
-dev_requires = ['ipython', 'pyramid-ipython']
-
+dev_requires = ['ipython', 'pyramid-ipython', ]
 
 
 setup(name='learning_journal',
