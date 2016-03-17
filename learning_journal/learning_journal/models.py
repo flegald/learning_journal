@@ -31,7 +31,7 @@ Base = declarative_base()
 #     value = Column(Integer)
 
 class Entry(Base):
-    __tablename__ = 'Entries'
+    __tablename__ = 'Entry'
     id = Column(Integer, primary_key=True, )
     title = Column(String(128, convert_unicode=True),
                    nullable=False,
