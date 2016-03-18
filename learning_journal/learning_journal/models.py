@@ -31,7 +31,7 @@ Base = declarative_base()
 #     value = Column(Integer)
 
 class Entry(Base):
-    __tablename__ = 'Entry'
+    __tablename__ = 'entries'
     id = Column(Integer, primary_key=True, )
     title = Column(Unicode(length=128),
                    nullable=False,
@@ -41,4 +41,4 @@ class Entry(Base):
     created = Column(DateTime(timezone=False),
                      default=datetime.datetime.utcnow)
 
-Index('my_index', Entry.title, unique=True, mysql_length=255)
+# Index('my_index', Entry.title, unique=True, mysql_length=255)

@@ -15,7 +15,9 @@ def my_view(request):
     try:
         one = DBSession.query(Entry).filter(Entry.title == 'one').first()
     except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+        return Response(conn_err_msg,
+                        content_type='text/plain',
+                        status_int=500)
     return {"title": 'My title', "text": "My text"}
 
 
