@@ -1,0 +1,21 @@
+
+<DOCTYPE! html>
+<head>
+<title>Learning Journal</title>
+</head>
+
+<body>
+
+<h1>Entries</h1>
+
+{% for entry in entries %}
+<ul>
+<li>{{entry.title}}</li>
+</ul>
+
+{% endfor %}
+
+</body>
+
+
+</html>

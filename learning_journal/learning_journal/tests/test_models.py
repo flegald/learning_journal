@@ -1,8 +1,9 @@
+
 # _*_ coding:utf-8 _*_
 """Test models.py."""
 import pytest
-from conftest import dbtransaction
-from conftest import DBSession
+from .conftest import dbtransaction
+from .conftest import DBSession
 from ..models import Entry
 
 

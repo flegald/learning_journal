@@ -10,15 +10,15 @@ from .models import (
     )
 
 
-@view_config(route_name='home', renderer='templates/basic_template.jinja2')
-def my_view(request):
+@view_config(route_name='home', renderer='templates/list.jinja2')
+def list(request):
     try:
-        one = DBSession.query(Entry).filter(Entry.title == 'one').first()
+        entries = DBSession.query(Entry)
     except DBAPIError:
         return Response(conn_err_msg,
                         content_type='text/plain',
                         status_int=500)
-    return {"title": 'My title', "text": "My text"}
+    return {"entries": entries}
 
 
 conn_err_msg = """\
