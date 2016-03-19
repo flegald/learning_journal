@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy import create_engine
 
 from learning_journal.models import DBSession, Base
+from ..models import Entry
 
 # TODO: update
 TEST_DATABASE_URL = os.environ.get("TESTDB_URL")
@@ -36,3 +37,11 @@ def dbtransaction(request, sqlengine):
     request.addfinalizer(teardown)
 
     return connection
+
+
+@pytest.fixture()
+def loaded_db(dbtransaction):
+    my_entry = Entry(title="thefreshloaf", text="the text about fresh loaves")
+    DBSession.add(my_entry)
+    DBSession.flush()
+    return DBSession

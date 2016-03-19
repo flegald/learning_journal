@@ -10,12 +10,16 @@
 
 {% for entry in entries %}
 <ul>
-<li>{{entry.title}}</li>
+<li>
+<a href="/entries/{{ entry.id }}">
+{{ entry.title }}
+</a>
+</br>Created on: {{ entry.created }}
+</li>
 </ul>
 
 {% endfor %}
 
 </body>
-
 
 </html>

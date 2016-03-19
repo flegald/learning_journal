@@ -11,14 +11,25 @@ from .models import (
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2')
-def list(request):
+def list_view(request):
     try:
-        entries = DBSession.query(Entry)
+        entries = DBSession.query(Entry).order_by(Entry.created.desc())
     except DBAPIError:
         return Response(conn_err_msg,
                         content_type='text/plain',
                         status_int=500)
     return {"entries": entries}
+
+
+@view_config(route_name='single_entry', renderer='templates/single_entry.jinja2')
+def single_entry_view(request):
+    try:
+        single_entry = DBSession.query(Entry).filter_by(id=request.matchdict['id']).first()
+    except DBAPIError:
+        return Response(conn_err_msg,
+                        content_type='text/plain',
+                        status_int=500)
+    return {"single_entry": single_entry}
 
 
 conn_err_msg = """\
