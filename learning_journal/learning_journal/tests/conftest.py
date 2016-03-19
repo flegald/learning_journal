@@ -6,7 +6,6 @@ from sqlalchemy import create_engine
 from learning_journal.models import DBSession, Base
 from ..models import Entry
 
-# TODO: update
 TEST_DATABASE_URL = os.environ.get("TESTDB_URL")
 
 

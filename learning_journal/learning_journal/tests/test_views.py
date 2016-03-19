@@ -19,8 +19,9 @@ ENTRIES = [
 
 
 @pytest.mark.parametrize(('title', 'text'), ENTRIES)
-def test_entry_view_text(title, text, dbtransaction):
-    """Test for entry view dictionary text attribute."""
+def test_list_view(title, text, dbtransaction):
+    """Test list view, which lists all entries."""
+    # TODO: build dummy entries in fixture
     entry = Entry(title=title, text=text)
     DBSession.add(entry)
     DBSession.flush()
@@ -31,3 +32,20 @@ def test_entry_view_text(title, text, dbtransaction):
     # NOTE: for attribute in [text, title] does not work
     assert dic['entries'][0].text == text
     assert dic['entries'][0].title == title
+
+
+@pytest.mark.parametrize(('title', 'text'), ENTRIES)
+def test_entry_view(title, text, dbtransaction):
+    """Test for entry view dictionary."""
+    # TODO: build dummy entries in fixture
+    # TODO: this test is repeating test_list_view
+    entry = Entry(title=title, text=text)
+    DBSession.add(entry)
+    DBSession.flush()
+    req = testing.DummyRequest()
+    req.matchdict = {'id': entry.id}
+    dic = single_entry_view(req)
+    # TODO: test both attributes in one assert statement
+    # NOTE: for attribute in [text, title] does not work
+    assert dic['single_entry'].text == text
+    assert dic['single_entry'].title == title

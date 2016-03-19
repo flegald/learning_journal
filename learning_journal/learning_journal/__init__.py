@@ -24,5 +24,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
     config.add_route('single_entry', '/entries/{id}')
+    config.add_route('add_entry', '/add_entry')
+    config.add_route('edit_entry', '/edit_entry/{id}')
     config.scan()
     return config.make_wsgi_app()

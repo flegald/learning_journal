@@ -1,0 +1,6 @@
+<a href='/'>Entry index</a>
+
+<h3>Add Entry:</h3>
+{% for field in form %}
+   <div>{{ field.label }}: {{ field }}</div>
+{% endfor %}
