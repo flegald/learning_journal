@@ -1,4 +1,5 @@
 from pyramid.response import Response
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
@@ -25,7 +26,8 @@ def list_view(request):
 @view_config(route_name='single_entry', renderer='templates/single_entry.jinja2')
 def single_entry_view(request):
     try:
-        single_entry = DBSession.query(Entry).filter_by(id=request.matchdict['id']).first()
+        entry_id = request.matchdict['id']
+        single_entry = DBSession.query(Entry).get(entry_id)
     except DBAPIError:
         return Response(conn_err_msg,
                         content_type='text/plain',
@@ -41,19 +43,45 @@ def add_entry_view(request):
 
     # instantiate entry_form, populating it with data from request
     entry_form = EntryForm(request.POST)
+    # if you got here from add_entry view with complete form -
     if request.method == 'POST' and entry_form.validate():
-        # instantiate entry db record object, populating it from entry_form object
-        entry = Entry(title=entry_form.title, text=entry_form.text)
-        DBSession.add(entry) # do i need to DBSession.flush() ?? probably not.
-        redirect('register')  # TODO: translate to pyramid-ese
+        entry = Entry(title=entry_form.title.data, text=entry_form.text.data)
+        DBSession.add(entry)
+        DBSession.flush()
+        entry_id = entry.id  # NOTE: must use mediating symbol
+        # go to detail view of that entry
+        return HTTPFound(location='/entries/{}'.format(entry_id))
     # else if form not valid, return to add_entry_view WITH existing form info
-    # ok, apparently we are passing a FORM object to the renderer
-    return {"form": entry_form} #  render_response('register.html', form=form) # TODO: what is this??
+    # if you did not get here from filled-out add-entry form
+    # TODO: if not entry_form.validate(), add info to form indicating failure
+    return {"form": entry_form}
 
 
 @view_config(route_name="edit_entry", renderer='templates/edit_entry.jinja2')
 def edit_entry_view(request):
     """"""
+    entry_form = EntryForm(request.POST)
+    entry_id = request.matchdict['id']
+    # grab record from db to populate fields
+    entry_record = DBSession.query(Entry).get(entry_id)
+    # if you got here from edit_entry view with valid form:
+    if request.method == 'POST' and entry_form.validate():
+        # overwrite record with incoming request form data
+        # NOTE: could use entry_form.populate_obj(entry_record), but this is clearer
+        entry_record.title = entry_form.title.data
+        entry_record.text = entry_form.text.data
+        # commit changed entry into db
+        DBSession.flush()  # is this done implicitly because sqlalchemy knows it's 'dirty'??
+        # send user to detail view of given entry, reflecting changes
+        return HTTPFound(location='/entries/{}'.format(entry_id))
+    # if you did not get here from edit_entry view:
+    else:
+        # do i need to touch my existing entry_form object before returning?
+        # yes, you need to put text, title from record into form
+        entry_form = EntryForm(request.POST, entry_record)  # wtforms automagically knows what to do with entry_record??
+        # entry_form.title.data = entry_record.title
+        # entry_form.text.data = entry_record.text
+        return {'form': entry_form}
     # 1. Display form poplated with values from existing entry
     # 2. view will update existing values when submitted
     # form must accept markdown
