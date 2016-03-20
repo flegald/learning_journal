@@ -18,7 +18,9 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'psycopg2',
-    'postgres'
+    'postgres',
+    'WTForms',
+    'markdown',
     ]
 
 tests_require = ['pytest', 'pytest-watch', 'tox', ]
