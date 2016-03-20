@@ -11,6 +11,7 @@ ENTRIES = [
 ]
 
 
+# TODO: understand this
 # def test_list(loaded_db):
 #     return_dict = list_view(req)
 #     print(return_dict['entries'].title)
