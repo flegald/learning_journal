@@ -57,6 +57,18 @@ def add_entry_view(request):
     return {"form": entry_form}
 
 
+# @view_config(route_name='edit_entry', renderer='templates/edit_entry.jinja2')
+# def edit_entry_view(request):
+#     entry_id = request.matchdict['id']
+#     entry_record = DBSession.query(Entry).get(entry_id)
+#     entry_form = EntryForm(request.POST, entry_record)  # magical form populating
+#     if request.method == 'POST' and entry_form.validate():
+#         entry_form.populate_obj(entry_record)  # this mutates entry_record, not entry_form!!
+#         entry_id = entry_record.id
+#         return HTTPFound(location='/entries/{}'.format(entry_id))
+#     return {'form': entry_form}
+
+
 @view_config(route_name="edit_entry", renderer='templates/edit_entry.jinja2')
 def edit_entry_view(request):
     """"""
@@ -68,10 +80,12 @@ def edit_entry_view(request):
     if request.method == 'POST' and entry_form.validate():
         # overwrite record with incoming request form data
         # NOTE: could use entry_form.populate_obj(entry_record), but this is clearer
-        entry_record.title = entry_form.title.data
-        entry_record.text = entry_form.text.data
+        # entry_record.title = entry_form.title.data
+        # entry_record.text = entry_form.text.data
+        entry_form.populate_obj(entry_record)
+        entry_id = entry_record.id  # NOTE: must use mediating symbol
         # commit changed entry into db
-        DBSession.flush()  # is this done implicitly because sqlalchemy knows it's 'dirty'??
+        # DBSession.flush()  # is this done implicitly because sqlalchemy knows it's 'dirty'??
         # send user to detail view of given entry, reflecting changes
         return HTTPFound(location='/entries/{}'.format(entry_id))
     # if you did not get here from edit_entry view:
@@ -86,20 +100,6 @@ def edit_entry_view(request):
     # 2. view will update existing values when submitted
     # form must accept markdown
 
-#################################
-########## example from wtforms
-
-#   user = request.current_user  # name the user passed in by the request
-#   form = ProfileForm(request.POST, user)  # instantiate a new form object, populated with request attributes
-#   if request.method == 'POST' and form.validate():
-#       form.populate_obj(user)  # isn't the form already populated with the user??
-#       user.save()  # why does user have a .save() method?
-#                    # it's the user from the request originally passed in
-#                    # did the *request* pass in a user *object* ??
-#       redirect('edit_profile')
-#   return render_response('edit_profile.html', form=form)
-
-##################################
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
