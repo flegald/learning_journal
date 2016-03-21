@@ -23,7 +23,7 @@ requires = [
     'markdown',
     ]
 
-tests_require = ['pytest', 'pytest-watch', 'tox', ]
+tests_require = ['pytest', 'pytest-watch', 'tox', 'webob']
 
 dev_requires = ['ipython', 'pyramid-ipython', ]
 

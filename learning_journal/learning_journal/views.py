@@ -1,7 +1,7 @@
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-
+import markdown
 from sqlalchemy.exc import DBAPIError
 
 from .models import (
@@ -32,7 +32,10 @@ def single_entry_view(request):
         return Response(conn_err_msg,
                         content_type='text/plain',
                         status_int=500)
-    return {"single_entry": single_entry}
+    # NOTE: We used Jared and AJ's code as an example
+    md = markdown.Markdown(safe_mode="replace", html_replacement_text="NO")
+    text = md.convert(single_entry.text)
+    return {"single_entry": single_entry, "text": text}
 
 
 @view_config(route_name='add_entry', renderer='templates/add_entry.jinja2')
