@@ -1,0 +1,54 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+}
+
+header {
+    background-color: ec1010;
+    color: black;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    }
+
+
+#nav {
+    list-style: none;
+    color: white;
+    margin-left: -30px;
+}
+
+.navLi {
+    display: inline-block;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: black;
+}
+
+section {
+    text-align: center;
+}
+
+#entries {
+    list-style: none;
+}
+
+#entries li {
+    padding: 10px;
+}
+
+textarea {
+    width: 90%;
+}
+
+#entryTitle {
+    
+}
