@@ -1,7 +1,7 @@
 <DOCTYPE! html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{{title}}</title>
+<title>Edit</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 <link type="text/css" rel="stylesheet" href="../static/home.css">
 </head>
@@ -14,15 +14,16 @@
     </ul>
   </header>
 
-<h3>Add Entry:</h3>
-<form method="POST" action="/add_entry">
-  {% for field in form %}
-  <div>{{ field.label }}: {{ field }}</div>
-  {% endfor %}
-  <input type="submit" value="Submit"/>
-</form>
+  <h3>Edit Entry:</h3>
 
+  <form method="POST" action=''>
+    {% for field in form %}
+    <div>{{ field.label }}: {{ field }}</div>
+    {% endfor %}
+    <input type="submit" value="Submit"/>
+    </form>
 
 
 </body>
+
 </html>

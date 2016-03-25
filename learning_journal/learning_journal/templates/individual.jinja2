@@ -14,15 +14,13 @@
     </ul>
   </header>
 
-<h3>Add Entry:</h3>
-<form method="POST" action="/add_entry">
-  {% for field in form %}
-  <div>{{ field.label }}: {{ field }}</div>
-  {% endfor %}
-  <input type="submit" value="Submit"/>
-</form>
 
-
-
+  <h1>{{ single_entry.title }}</h1>
+  <h3>Date created: {{ single_entry.created }}</h3>
+  <p>{{ text|safe }}</p>
+  </br>
+  {% if request.has_permission('edit') %}
+  <div id='to_edit'><a href='/edit_entry/{{ single_entry.id }}'>Edit entry</a></div>
+  {% endif %}
 </body>
 </html>

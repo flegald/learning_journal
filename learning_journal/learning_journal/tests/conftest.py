@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Configure tests."""
 import os
 import pytest
 from sqlalchemy import create_engine
@@ -6,11 +7,12 @@ from sqlalchemy import create_engine
 from learning_journal.models import DBSession, Base
 from ..models import Entry
 
-TEST_DATABASE_URL = "postgres://David:saget@localhost:5432/testing"
+TEST_DATABASE_URL = os.environ.get("TESTDB_URL", None)
 
 
 @pytest.fixture(scope='session')
 def sqlengine(request):
+    """Set up and teardown test engine."""
     engine = create_engine(TEST_DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
@@ -24,6 +26,7 @@ def sqlengine(request):
 
 @pytest.fixture()
 def dbtransaction(request, sqlengine):
+    """Create ad teardown test db connection."""
     connection = sqlengine.connect()
     transaction = connection.begin()
     DBSession.configure(bind=connection)
@@ -40,6 +43,7 @@ def dbtransaction(request, sqlengine):
 
 @pytest.fixture()
 def loaded_db(dbtransaction):
+    """Add test entry."""
     my_entry = Entry(title="thefreshloaf", text="the text about fresh loaves")
     DBSession.add(my_entry)
     DBSession.flush()

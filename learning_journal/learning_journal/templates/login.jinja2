@@ -14,15 +14,10 @@
     </ul>
   </header>
 
-<h3>Add Entry:</h3>
-<form method="POST" action="/add_entry">
-  {% for field in form %}
-  <div>{{ field.label }}: {{ field }}</div>
-  {% endfor %}
-  <input type="submit" value="Submit"/>
+<h3>{{ action_head }} </h3>
+<form method='POST' action=''>
+{% for field in form %}
+<div>{{ field.label }}: {{ field }}</div>
+{% endfor %}
+<input type='submit' value='Submit'/>
 </form>
-
-
-
-</body>
-</html>

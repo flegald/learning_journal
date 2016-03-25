@@ -1,0 +1,90 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+}
+
+header {
+    background-image: url('red.png');
+    background-position: center center;
+    color: black;
+    width: 98%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    }
+
+
+#nav {
+    list-style: none;
+    color: white;
+    margin-left: -30px;
+}
+
+.navLi {
+    display: inline-block;
+    padding: 10px;
+}
+
+#nav a {
+    text-decoration: none;
+    color: white;
+}
+
+#nav a:hover {
+    color: black;
+}
+
+section {
+    text-align: center;
+}
+
+#entries {
+    list-style: none;
+}
+
+#entries li {
+    padding: 10px;
+}
+
+textarea {
+    width: 90%;
+}
+
+.entry_listed {
+    color: black;
+}
+
+.entry_listed li a {
+    font-size: 18px;
+}
+
+.entry_listed li a:hover {
+    color: #005655;
+}
+
+.entry_listed li a:visited {
+    color: ec1010;
+}
+
+#content h3 {
+    font-size: 24px;
+    text-decoration: underline;
+    width: 95%;
+}
+
+.edit_entry {
+    min-height: 200px;
+    max-width: 200px;
+}
+
+.spacer {
+    width:75%;
+    height: 1.5px;
+    background-color: black;
+}
+
+#to_edit {
+    border: 1px, solid red;
+    padding: 2px;
+}
+
