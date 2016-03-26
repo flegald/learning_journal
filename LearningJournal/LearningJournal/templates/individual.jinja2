@@ -1,0 +1,26 @@
+<DOCTYPE! html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{{title}}</title>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="../static/home.css">
+</head>
+<body>
+  <header>
+    <h1>Learning Journal</h1>
+
+    <ul id="nav">
+      <li class="navLi"><a href='/'>Home</a></li>
+    </ul>
+  </header>
+
+
+  <h1>{{ single_entry.title }}</h1>
+  <h3>Date created: {{ single_entry.created }}</h3>
+  <p>{{ text|safe }}</p>
+  </br>
+  {% if request.has_permission('edit') %}
+  <div id='to_edit'><a href='/edit_entry/{{ single_entry.id }}'>Edit entry</a></div>
+  {% endif %}
+</body>
+</html>

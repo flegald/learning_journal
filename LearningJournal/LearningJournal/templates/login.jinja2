@@ -1,0 +1,23 @@
+<DOCTYPE! html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{{title}}</title>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="../static/home.css">
+</head>
+<body>
+  <header>
+    <h1>Learning Journal</h1>
+
+    <ul id="nav">
+      <li class="navLi"><a href='/'>Home</a></li>
+    </ul>
+  </header>
+
+<h3>{{ action_head }} </h3>
+<form method='POST' action=''>
+{% for field in form %}
+<div>{{ field.label }}: {{ field }}</div>
+{% endfor %}
+<input type='submit' value='Submit'/>
+</form>
