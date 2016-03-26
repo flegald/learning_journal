@@ -4,7 +4,7 @@ import os
 import pytest
 from sqlalchemy import create_engine
 
-from learning_journal.models import DBSession, Base
+from LearningJournal.models import DBSession, Base
 from ..models import Entry
 
 TEST_DATABASE_URL = os.environ.get("TESTDB_URL", None)

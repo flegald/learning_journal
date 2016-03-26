@@ -5,7 +5,7 @@ from .conftest import dbtransaction
 from pyramid import testing
 import webtest
 import os
-from learning_journal import main
+from LearningJournal import main
 from ..forms import EntryForm, LoginForm
 from ..views import (
     list_view,
