@@ -28,7 +28,7 @@ tests_require = ['pytest', 'pytest-watch', 'tox', 'webob']
 dev_requires = ['ipython', 'pyramid-ipython', ]
 
 
-setup(name='learning_journal',
+setup(name='LearningJournal',
       version='0.0',
       description='learning_journal',
       long_description=README + '\n\n' + CHANGES,
